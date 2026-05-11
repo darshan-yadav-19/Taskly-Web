@@ -9,7 +9,7 @@ RUN npm install --fetch-timeout=600000 --network-timeout=600000
 
 COPY src/ ./src/
 COPY public/ ./public/
-COPY .env.development ./
+
 
 RUN npm run build
 
