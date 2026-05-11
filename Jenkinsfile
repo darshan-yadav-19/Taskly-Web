@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        APP_SERVER = "YOUR_APP_EC2_PRIVATE_IP"
+        APP_SERVER = "13.127.91.64"
         APP_DIR = "/home/ubuntu/taskly-app"
-        REPO_URL = "YOUR_GITHUB_REPO_URL"
+       REPO_URL = "https://github.com/darshan-yadav-19/Taskly-Web.git"
     }
 
     stages {
