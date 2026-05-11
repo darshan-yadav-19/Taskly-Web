@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+
+  # ── Backend ────────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    # context: . means Docker looks for files starting from the project root.
+    # This is important because our Dockerfile copies .env which is in the root,
+    # not inside server/. If context was server/ it would not find .env.
+    container_name: taskly-backend
+    restart: unless-stopped
+    # unless-stopped means: restart automatically if the container crashes,
+    # or if the EC2 reboots. But if you manually stop it, leave it stopped.
+    ports:
+      - "3001:3001"
+    # Left side is the EC2 server port. Right side is the container port.
+    # Traffic hitting the EC2 on port 3001 goes into the container on port 3001.
+    volumes:
+      - taskly-data:/app/server
+    # Mount the named volume at /app/server inside the container.
+    # This is the folder where taskly.json gets written.
+    # The file now lives on the EC2 disk, not inside the container.
+    environment:
+      - NODE_ENV=production
+
+  # ── Frontend ───────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: taskly-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    # depends_on tells docker-compose to start the backend container first.
+    # Then start the frontend container.
+    # Note: this only controls start ORDER, not readiness.
+    # It does not wait for Express to be fully ready before starting nginx.
+    # For this project that is fine — nginx will just retry the proxy.
+
+# ── Named Volumes ──────────────────────────────────────────────────────────
+volumes:
+  taskly-data:
+  # By declaring it here, Docker creates and manages this volume automatically.
+  # It persists until you explicitly run: docker volume rm taskly-data
+  # Stopping containers, redeploying, rebooting EC2 — none of that touches it.

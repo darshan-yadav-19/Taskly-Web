@@ -1,0 +1,31 @@
+{
+  "name": "taskly",
+  "version": "1.0.0",
+  "private": true,
+"scripts": {
+  "start": "concurrently -n API,React -c \"blue,green\" \"node server/index.js\" \"react-scripts start\"",
+  "server": "node server/index.js",
+  "client": "react-scripts start",
+  "build": "react-scripts build"
+},
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "lowdb": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "uuid": "^9.0.1"
+  },
+  "eslintConfig": {
+    "extends": ["react-app"]
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+  },
+  "proxy": "http://localhost:3001"
+}
