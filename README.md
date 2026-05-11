@@ -4,7 +4,6 @@
 - Node.js 18+ (https://nodejs.org)
 - npm 9+
 
-
 ## Run it
 
 ```bash
