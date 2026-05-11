@@ -1,6 +1,6 @@
 # Taskly — Personal Task Manager
 
-## Requirements
+## Requirements are ok
 - Node.js 18+ (https://nodejs.org)
 - npm 9+
 
