@@ -51,14 +51,15 @@ pipeline {
             }
         }
 
-        stage('Health Check') {
-            steps {
+stage('Health Check') {
+    steps {
 
-                sh """
-                    curl --fail http://$APP_SERVER/health
-                """
-            }
-        }
+        sh '''
+            sleep 15
+            curl --fail http://13.127.91.64/health
+        '''
+    }
+}
     }
 
     post {
